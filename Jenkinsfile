@@ -19,7 +19,14 @@ node ('master')
     {
         try
         {
-            stage('Run Ansible playbook from Master to install Docker on Test Server')
+            stage('Download configuration files (Playbook, groovy script) from git repo - Master server')
+            {
+                echo'===========Download config from Git repo============='            
+                    sh 'whoami'
+                    git branch: 'master', url: 'https://github.com/bhasker-2019/Devops_project_simple-php-website.git'
+                } 
+
+           stage('Run Ansible playbook from Master to install Docker on Test Server')
                 {
                     sh 'whoami'
                     echo 'Start installation of Docker on Test Server'
@@ -46,7 +53,7 @@ node ('Slave2')
             stage ('Download PHP-Website files from git repository into Test Server')
             {
                 echo'======Downloading PHP-Website files========'
-                git 'https://github.com/bhasker-2019/Devops_project_simple-php-website.giti'
+                git 'https://github.com/bhasker-2019/Devops_project_simple-php-website.git'
             }
                 
             stage('Build & Deploy container on Test Server')
