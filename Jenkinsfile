@@ -22,13 +22,14 @@ node ('master')
             stage('Download configuration files (Playbook, groovy script) from git repo - Master server')
             {
                 echo'===========Download config from Git repo============='            
+                    
                     sh 'whoami'
                     git branch: 'master', url: 'https://github.com/bhasker-2019/Devops_project_simple-php-website.git'
+                    sh 'pwd'
                 } 
 
            stage('Run Ansible playbook from Master to install Docker on Test Server')
                 {
-                    sh 'whoami'
                     echo 'Start installation of Docker on Test Server'
                     sh 'sudo ansible-playbook project_ansible_playbook.yml'
                     echo 'Completed Docker installation'
