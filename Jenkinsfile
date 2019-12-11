@@ -15,7 +15,7 @@ import java.net.URL
 // globale variable to store test result
 def testresult =''
 
-node ('master')
+node ('Master')
     {
         try
         {
