@@ -31,7 +31,7 @@ node ('master')
            stage('Run Ansible playbook from Master to install Docker on Test Server')
                 {
                     echo 'Start installation of Docker on Test Server'
-                    sh  'ansible-playbook project_ansible_playbook.yml'
+                    sh  'sudo ansible-playbook project_ansible_playbook.yml'
                     echo 'Completed Docker installation'
                 }
         }
