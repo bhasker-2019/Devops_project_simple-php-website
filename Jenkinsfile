@@ -21,7 +21,6 @@ node ('master')
         {
             stage('Run Ansible playbook from Master to install Docker on Test Server')
                 {
-                    sh 'cd devops_project'
                     echo 'Start installation of Docker on Test Server'
                     sh 'sudo ansible-playbook project_ansible_playbook.yml'
                     echo 'Completed Docker installation'
@@ -46,7 +45,7 @@ node ('Slave2')
             stage ('Download PHP-Website files from git repository into Test Server')
             {
                 echo'======Downloading PHP-Website files========'
-                git https://github.com/bhasker-2019/Devops_project_simple-php-website.git
+                git 'https://github.com/bhasker-2019/Devops_project_simple-php-website.giti'
             }
                 
             stage('Build & Deploy container on Test Server')
