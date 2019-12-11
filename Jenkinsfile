@@ -25,7 +25,7 @@ node ('master')
                 echo'===========Download config from Git repo============='            
                     
                     //git branch: 'master', url: 'https://github.com/bhasker-2019/Devops_project_simple-php-website.git'
-                    git 'https://github.com/bhasker-2019/Devops_project_simple-php-website.git''
+                    git 'https://github.com/bhasker-2019/Devops_project_simple-php-website.git'
                 } 
 
            stage('Run Ansible playbook from Master to install Docker on Test Server')
