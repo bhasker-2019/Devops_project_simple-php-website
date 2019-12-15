@@ -2,7 +2,7 @@
 import hudson.model.*
 import java.net.URL
 
-// Maintained by : Bhaser S
+// Maintained by : Bhasker S
 // Groovy script to deploy an simple PHP website using Jenkinsfile pipeline
 // 1. Download project files from remote Git repository into Master node
 // 2. Using Ansible playbook install Docker on slave machine 
@@ -23,8 +23,8 @@ node ('master')
             stage('Download configuration files (Playbook, groovy script) from git repo - Master server')
             {
                 echo'===========Download config from Git repo============='            
-                    
-                    //git branch: 'master', url: 'https://github.com/bhasker-2019/Devops_project_simple-php-website.git'
+
+               
                     git 'https://github.com/bhasker-2019/Devops_project_simple-php-website.git'
                 } 
 
@@ -47,70 +47,70 @@ node ('master')
     }
     
     
-//node ('Slave2')
-//    {
-//        try
-//        {
-//            stage ('Download PHP-Website files from git repository into Test Server')
-//            {
-//                echo'======Downloading PHP-Website files========'
-//                git 'https://github.com/bhasker-2019/Devops_project_simple-php-website.git'
-//            }
+node ('slave')
+    {
+        try
+        {
+            stage ('Download PHP-Website files from git repository into Test Server')
+            {
+                echo'======Downloading PHP-Website files========'
+                git 'https://github.com/bhasker-2019/Devops_project_simple-php-website.git'
+            }
                 
-//            stage('Build & Deploy container on Test Server')
-//            {
-//                echo '===============Build Image and Deploy================='
-//                echo '****checking if container exists and remove it ****'
+            stage('Build & Deploy container on Test Server')
+            {
+                echo '===============Build Image and Deploy================='
+                echo '****checking if container exists and remove it ****'
                 // Check if container exists on remote server 
-//                sh 'sudo docker rm -f php-website || true'
+                sh 'sudo docker rm -f php-website || true'
                 // Build the latest image using Dockerfile
-//                sh 'sudo docker build . -t bhasker2019/php-website:v${BUILD_NUMBER}'
+                sh 'sudo docker build . -t bhasker2019/php-website:v${BUILD_NUMBER}'
                 // Build and start the container
-//                sh 'sudo docker run -itd -p 80:80 --name container_php bhasker2019/php-website:v${BUILD_NUMBER}'               
-//            }
+                sh 'sudo docker run -itd -p 80:80 --name container_php bhasker2019/php-website:v${BUILD_NUMBER}'               
+            }
                 
-//            stage ('Test Webpage')
-//            {
-//                echo '===========Starting the Test============'
-//                testoutput = sh (script: 'java -jar MyProject_Testing.jar', , returnStdout:true).trim()
-//                if(testoutput=="PASS")
-//                {
-//                    echo 'Test has Passed!!!'
+            stage ('Test Webpage')
+            {
+                echo '===========Starting the Test============'
+                testoutput = sh (script: 'java -jar MyProject_Testing.jar', , returnStdout:true).trim()
+                if(testoutput=="PASS")
+                {
+                    echo 'Test has Passed!!!'
                     // If test is successful push the image to docker registry
-//                    sh 'sudo docker push bhasker2019/php-website:v${BUILD_NUMBER}'
-//                    testresult="PASS"
-//                }
-//                else
-//                {
-//                    echo 'Test has Failed'
-//                    sh 'sudo docker stop container_php || true'
-//                    sh 'sudo docker rm container_php || true'
-//                    echo '------* Deleted the Container *--------'
-//                    sh 'sudo docker rmi -f bhasker2019/php-website:v${BUILD_NUMBER} || true'
-//                    echo '------* Deleted the Image *--------'
-//                }
+                    sh 'sudo docker push bhasker2019/php-website:v${BUILD_NUMBER}'
+                    testresult="PASS"
+                }
+                else
+                {
+                    echo 'Test has Failed'
+                    sh 'sudo docker stop container_php || true'
+                    sh 'sudo docker rm container_php || true'
+                    echo '------* Deleted the Container *--------'
+                    sh 'sudo docker rmi -f bhasker2019/php-website:v${BUILD_NUMBER} || true'
+                    echo '------* Deleted the Image *--------'
+                }
                     
     
                     
                     
-//            }
+            }
             
-//        }
+        }
 
-//        catch(Exception err)
-//        {
-//            echo '****** Error ********'
-//            echo "${err}"
-//            echo 'The code has errors. Deleting the container and images'
-//            sh 'sudo docker stop container_php || true'
-//            sh 'sudo docker rm container_php || true'
-//            sh 'sudo docker rmi -f bhasker2019/php-website:v${BUILD_NUMBER} || true'
-//        }
-//            finally
-//        {
-//            echo 'Script execution in slave is complete'
-//        }
-//    }
+        catch(Exception err)
+        {
+            echo '****** Error ********'
+            echo "${err}"
+            echo 'The code has errors. Deleting the container and images'
+            sh 'sudo docker stop container_php || true'
+            sh 'sudo docker rm container_php || true'
+            sh 'sudo docker rmi -f bhasker2019/php-website:v${BUILD_NUMBER} || true'
+        }
+            finally
+        {
+            echo 'Script execution in slave is complete'
+        }
+    }
 //node('master')
 //    {
 //        stage('Production Deployment')
