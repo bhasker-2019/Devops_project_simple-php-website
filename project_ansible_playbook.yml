@@ -10,7 +10,7 @@
 # 1. Install Docker
 
 # Update the basic packages required
-- hosts: Sample
+- hosts: TestServer
   become_user: root
   tasks:
   - name: Install transport package
