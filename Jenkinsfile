@@ -69,31 +69,31 @@ node ('slave')
                 sh 'sudo docker run -itd -p 80:80 --name container_php bhasker2019/php-website:v${BUILD_NUMBER}'               
             }
                 
-            stage ('Test Webpage')
-            {
-                echo '===========Starting the Test============'
-                testoutput = sh (script: 'java -jar MyProject_Testing.jar', , returnStdout:true).trim()
-                if(testoutput=="PASS")
-                {
-                    echo 'Test has Passed!!!'
+            //stage ('Test Webpage')
+           // {
+            //    echo '===========Starting the Test============'
+            //    testoutput = sh (script: 'java -jar MyProject_Testing.jar', , returnStdout:true).trim()
+            //    if(testoutput=="PASS")
+            //    {
+            //        echo 'Test has Passed!!!'
                     // If test is successful push the image to docker registry
-                    sh 'sudo docker push bhasker2019/php-website:v${BUILD_NUMBER}'
-                    testresult="PASS"
-                }
-                else
-                {
-                    echo 'Test has Failed'
-                    sh 'sudo docker stop container_php || true'
-                    sh 'sudo docker rm container_php || true'
-                    echo '------* Deleted the Container *--------'
-                    sh 'sudo docker rmi -f bhasker2019/php-website:v${BUILD_NUMBER} || true'
-                    echo '------* Deleted the Image *--------'
-                }
+            //        sh 'sudo docker push bhasker2019/php-website:v${BUILD_NUMBER}'
+            //        testresult="PASS"
+            //    }
+            //    else
+            //    {
+            //        echo 'Test has Failed'
+            //        sh 'sudo docker stop container_php || true'
+            //        sh 'sudo docker rm container_php || true'
+            //        echo '------* Deleted the Container *--------'
+            //        sh 'sudo docker rmi -f bhasker2019/php-website:v${BUILD_NUMBER} || true'
+            //        echo '------* Deleted the Image *--------'
+            //    }
                     
     
                     
                     
-            }
+          //  }
             
         }
 
