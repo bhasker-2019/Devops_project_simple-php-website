@@ -1,0 +1,74 @@
+---
+# Playbook to install Docker on a remote host 
+
+# Referred below websites while preparing the playbook 
+# https://docs.docker.com/install/linux/docker-ce/ubuntu/
+# https://docs.ansible.com/ansible/latest/modules/apt_module.html
+
+
+# Playbook built for the DevOps project
+# 1. Install Docker
+
+# Update the basic packages required
+- hosts: Production
+  become_user: root
+  tasks:
+  - name: Install transport package
+    apt:
+      name: apt-transport-https
+      state: present
+      
+  - name: Install certificates
+    apt:
+      name: ca-certificates
+      state: present
+
+  - name: Install curl
+    apt:
+      name: curl
+      state: present
+  
+  - name: Install gnup
+    apt:
+      name: gnupg-agent
+      state: present
+
+  - name: Install software properties
+    apt:
+      name: software-properties-common
+      state: present
+      install_recommends: yes
+      update_cache: yes
+
+#Adding an GPG Key (curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -)
+
+  - name: Add Docker GPG Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+# Setting up the stable repository (sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu stable)
+  - name: Set up stable repository
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+      state: present
+
+# Update the apt package index (sudo apt-get update)
+  - name: Update the package index
+    apt:
+      update_cache: yes
+
+# Docker Installation (apt-get install docker-ce)
+  - name: Install the Docker and update repositories
+    apt:
+      name: docker-ce
+      state: present
+      update_cache: yes
+
+  - name: Remove existing production containder 
+    docker_container:
+      name: prod_php_website
+      state: absent
+
+  - name: Deploy and start production container
+    command: sudo docker run -itd --name prod_php_website -p 80:80 bhasker2019/php-website:${BUILD_NUMBER}

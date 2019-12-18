@@ -111,23 +111,23 @@ node ('slave')
             echo 'Script execution in slave is complete'
         }
     }
-//node('master')
-//    {
-//        stage('Production Deployment')
-//        {
-//            if(testresult=="PASS")
-//            {
-//                echo 'deploying the latest image in production'
+node('master')
+    {
+        stage('Production Deployment')
+        {
+            if(testresult=="PASS")
+            {
+                echo 'deploying the latest image in production'
                 //execute the ansible playbook to deploy the code on production
-                //sh 'ansible-playbook Deploy-prod-website.yml'                
+                sh 'sudo ansible-playbook production_deployment_playbook.yml'                
 //                sh 'sudo docker rm -f website-prod ||true'
 //                sh 'sudo docker run -itd --name website-prod -p 80:80 smartbond/simple-php-website:v${BUILD_NUMBER}'
-//            }
+            }
 //            else
 //            {
 //                echo 'Since test failed, no update to production'
 //            }
-//        }
+        }
 
 
-//    }
+    }
