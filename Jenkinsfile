@@ -64,22 +64,22 @@ node ('slave')
                 // Check if container exists on remote server 
                 sh 'sudo docker rm -f php-website || true'
                 // Build the latest image using Dockerfile
-                sh 'sudo docker build . -t bhasker2019/php-website:v${BUILD_NUMBER}'
+                sh 'sudo docker build . -t bhasker2019/php-website:${BUILD_NUMBER}'
                 // Build and start the container
-                sh 'sudo docker run -itd -p 80:80 --name container_php bhasker2019/php-website:v${BUILD_NUMBER}'               
+                sh 'sudo docker run -itd -p 80:80 --name container_php bhasker2019/php-website:${BUILD_NUMBER}'               
             }
                 
-            //stage ('Test Webpage')
-           // {
-            //    echo '===========Starting the Test============'
-            //    testoutput = sh (script: 'java -jar MyProject_Testing.jar', , returnStdout:true).trim()
-            //    if(testoutput=="PASS")
-            //    {
-            //        echo 'Test has Passed!!!'
+           stage ('Test Webpage')
+            {
+                  echo '===========Starting the Test============'
+                  testoutput = sh (script: 'java -jar MyProject_Testing.jar', , returnStdout:true).trim()
+                  if(testoutput=="PASS")
+                   {
+                      echo 'Test has Passed!!!'
                     // If test is successful push the image to docker registry
-            //        sh 'sudo docker push bhasker2019/php-website:v${BUILD_NUMBER}'
-            //        testresult="PASS"
-            //    }
+                    sh 'sudo docker push bhasker2019/php-website:${BUILD_NUMBER}'
+                    testresult="PASS"
+                }
             //    else
             //    {
             //        echo 'Test has Failed'
@@ -93,7 +93,7 @@ node ('slave')
     
                     
                     
-          //  }
+            }
             
         }
 
