@@ -62,7 +62,7 @@ node ('slave')
                 // Remove if image exists 
                 sh 'sudo docker rmi -f php-website || true'
                 // If container exists stop and remove it
-                sh 'sudo docker stop container_php ; docker rm container_php || true' 
+               // sh 'sudo docker stop container_php ; docker rm container_php || true' 
                 // Build the latest image using Dockerfile
                 sh 'sudo docker build . -t bhasker2019/php-website:${BUILD_NUMBER}'
                 // Build and start the container
