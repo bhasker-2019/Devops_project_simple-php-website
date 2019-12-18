@@ -80,15 +80,15 @@ node ('slave')
                     sh 'sudo docker push bhasker2019/php-website:${BUILD_NUMBER}'
                     testresult="PASS"
                 }
-            //    else
-            //    {
-            //        echo 'Test has Failed'
-            //        sh 'sudo docker stop container_php || true'
-            //        sh 'sudo docker rm container_php || true'
-            //        echo '------* Deleted the Container *--------'
-            //        sh 'sudo docker rmi -f bhasker2019/php-website:v${BUILD_NUMBER} || true'
-            //        echo '------* Deleted the Image *--------'
-            //    }
+                else
+                {
+                    echo 'Test has Failed'
+                    sh 'sudo docker stop container_php || true'
+                    sh 'sudo docker rm container_php || true'
+                    echo '------* Deleted the Container *--------'
+                    sh 'sudo docker rmi -f bhasker2019/php-website:${BUILD_NUMBER} || true'
+                    echo '------* Deleted the Image *--------'
+                }
                     
     
                     
@@ -102,9 +102,9 @@ node ('slave')
             echo '****** Error ********'
             echo "${err}"
             echo 'The code has errors. Deleting the container and images'
-//            sh 'sudo docker stop container_php || true'
-//            sh 'sudo docker rm container_php || true'
-//            sh 'sudo docker rmi -f bhasker2019/php-website:${BUILD_NUMBER} || true'
+            sh 'sudo docker stop container_php || true'
+            sh 'sudo docker rm container_php || true'
+            sh 'sudo docker rmi -f bhasker2019/php-website:${BUILD_NUMBER} || true'
         }
             finally
         {
