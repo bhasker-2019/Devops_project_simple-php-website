@@ -78,8 +78,7 @@ node ('slave')
                       echo 'Test has Passed!!!'
                     // If test is successful push the image to remote hub docker registry
                     sh 'sudo docker push bhasker2019/php-website:${BUILD_NUMBER}'
-                    testresult="PASS"
-                }
+                   }
                 else
                 {
                     echo 'Test has Failed'
