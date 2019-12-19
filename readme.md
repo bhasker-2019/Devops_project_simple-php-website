@@ -10,3 +10,5 @@ Below are the steps followed:
 4. Build and Start docker container using updated image
 5. Perform the testing of the webpage using the selenium jar file
 6. In case test failed delete the image and container from slave node
+
+Modify readme file and adding simple text
